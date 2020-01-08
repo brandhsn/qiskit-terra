@@ -23,7 +23,7 @@ from marshmallow.exceptions import ValidationError
 
 from qiskit.circuit.parameterexpression import ParameterExpression
 from qiskit.validation import ModelTypeValidator
-
+import sys
 
 class Complex(ModelTypeValidator):
     """Field for complex numbers.
@@ -36,8 +36,8 @@ class Complex(ModelTypeValidator):
     valid_types = (complex, )
 
     default_error_messages = {
-        'invalid': '{input} cannot be parsed as a complex number.',
-        'format': '"{input}" cannot be formatted as complex number.',
+        'invalid': '{input} bla3 cannot be parsed as a complex number.',
+        'format': '"{input}" bla3 cannot be formatted as complex number.',
     }
 
     def _serialize(self, value, attr, obj, **_):
@@ -47,12 +47,17 @@ class Complex(ModelTypeValidator):
             raise self.make_error_serialize('format', input=value)
 
     def _deserialize(self, value, attr, data, **_):
-        if not is_collection(value) or len(value) != 2:
-            raise self.make_error('invalid', input=value)
+        #if not is_collection(value) or len(value) != 2:
+        #    raise self.make_error('invalid', input=value)
 
         try:
-            return complex(*value)
+            return complex(value)
         except (ValueError, TypeError):
+            #sys.exit(0)
+            with open("logging.txt","w") as fi:
+              fi.write("Oh Noes!")
+              fi.write("{}".format(value))
+              fi.write("Oh Noes!")
             raise self.make_error('invalid', input=value)
 
 

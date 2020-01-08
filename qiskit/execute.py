@@ -22,7 +22,7 @@ Executing Experiments (:mod:`qiskit.execute`)
 .. autofunction:: execute
 """
 from qiskit.compiler import transpile, assemble
-
+import datetime
 
 def execute(experiments, backend,
             basis_gates=None, coupling_map=None,  # circuit transpile options
@@ -238,5 +238,9 @@ def execute(experiments, backend,
                     **run_config
                     )
 
+    #print("before run: {}".format(datetime.datetime.now()))
     # executing the circuits on the backend and returning the job
-    return backend.run(qobj, **run_config)
+    blaa = backend.run(qobj, **run_config)
+    
+    #print("after run: {}".format(datetime.datetime.now()))
+    return blaa 

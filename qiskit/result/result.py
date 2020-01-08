@@ -199,8 +199,10 @@ class Result(BaseModel):
             QiskitError: if there is no statevector for the experiment.
         """
         try:
-            return postprocess.format_statevector(self.data(experiment)['statevector'],
-                                                  decimals=decimals)
+            #return postprocess.format_statevector(self.data(experiment)['statevector'],
+            #                                      decimals=decimals)
+            #return self.data(experiment)['statevector']
+            return self._get_experiment(experiment).data.statevector
         except KeyError:
             raise QiskitError('No statevector for experiment "{0}"'.format(experiment))
 
